@@ -38,10 +38,45 @@ class Hotel:
         print(f"Cliente {cliente.nome} Cadastrado com sucesso")
 
     def verTodosCliente(self):
-        pass
+        if not self.listaDeClientes:
+            print("Nenhum cliente foi encontrado...")
+            return
+        
+        for cliente in self.listaDeClientes:
+            print(f"""
+    ID: {cliente.id}
+    Nome: {cliente.nome}
+    Telefone: {cliente.telefone}
+    Email : {cliente.email}
+
+""")
 
     def modificarCliente(self):
-        pass
+        identifier = int(input("Digite o ID do Cliente que Deseja Modificar: "))
+        for cliente in self.listaDeClientes:
+            if cliente.id == identifier:
+                modificar = input("""
+O que você deseja modificar:
+1 - Nome do Cliente
+2 - Telefone do Cliente
+3 - Email do Cliente
+0 - Não Desejo Modificar Nada
+""")
+                match modificar:
+                    case "1":
+                        nome = input("Digite o Novo Nome do Cliente: ")
+                        cliente.nome = nome
+                    case "2":
+                        telefone = input("Digite o Novo Telefone do Cliente: ")
+                        cliente.telefone = telefone
+                    case "3":
+                        email = input("Digite o Novo Email do Cliente: ")
+                        cliente.email = email
+                    case "0":
+                        print("Voltando para o Menu Clientes")
+                        pass
+                    case _:
+                        pass
 
     def excluirCliente(self):
         pass
