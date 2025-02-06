@@ -1,15 +1,16 @@
 class Cliente:
     _contadorId = 0
 
-    def  __init__(self, nome:str, telefone:str, email:str):
+    def  __init__(self, nome:str, telefone:str, email:str, cpf:str):
         Cliente._contadorId += 1
         self.id = Cliente._contadorId
         self.nome = nome
         self.telefone = telefone
         self.email = email
+        self.cpf = cpf
 
 class Quartos:
-    def __init__(self, numeroQuarto:int, tipoDeQuartos:str, PrecoDaDiaria:float, statusDeDisponibilidade:bool):
+    def __init__(self, numeroQuarto:int, tipoDeQuartos:int, PrecoDaDiaria:float, statusDeDisponibilidade:bool):
         self.numeroQuarto = numeroQuarto
         self.tipoDeQuarto = tipoDeQuartos
         self.precoDaDiaria = PrecoDaDiaria
@@ -33,7 +34,8 @@ class Hotel:
         nome = input("Digite o Nome do Cliente: ")
         telefone = input("Digite o Telefone do Cliente: ")
         email = input("Digite o Email do Cliente: ")
-        cliente = Cliente(nome, telefone, email)
+        cpf = input("Digite o CPF do Cliente: ")
+        cliente = Cliente(nome, telefone, email, cpf)
         self.listaDeClientes.append(cliente)
         print(f"Cliente {cliente.nome} Cadastrado com sucesso")
 
@@ -79,14 +81,70 @@ O que você deseja modificar:
                         pass
 
     def excluirCliente(self):
-        pass
+        identifier = int(input("Digite o ID do Cliente que Deseja Modificar: "))
+        for cliente in self.listaDeClientes:
+            if cliente.id == identifier:
+                self.listaDeClientes.remove(cliente)
+                print(f"{cliente.nome} foi excluído com sucesso")
+                return
+        print("Cliente Não Encontrado...")
 
 
     def adicionarQuarto(self):
-        pass
+        tipo = ["Single", "Double", "Suite"]
+        disponibilidade = [True, False] #True = Disponivel e False = Indisponivel
+        numeroQuarto = int(input("Digite o Número do Quarto: "))
+        while True:
+            tipoQuarto = int(input(f"""Digite o tipo do Quarto:
+    === Tipos de Quarto ===
+1 - Single
+2 - Double
+3 - Suite
+"""))
+            if tipoQuarto in [1, 2, 3]:
+                tipoQuarto = tipo[tipoQuarto - 1]
+                break
+            else:
+                print("Opção Inválida. Tente Novamente\n")
+            
+        print(f"O Tipo de Quarto Escolhido Foi: {tipoQuarto}")
+
+        precoDiaria = float(input("Digite o Preço da Diária do Quarto: "))
+        while True:
+            statusDisponibilidade = int(input("""Digite a Disponibilidade do Quarto:
+=== Disponibilidade do Quarto ===
+1 - Disponível
+2 - Indisponível
+"""""))
+            if statusDisponibilidade in [1, 2]:
+                statusDisponibilidade = disponibilidade[statusDisponibilidade - 1]
+
+                if statusDisponibilidade == True:
+                    statusDisponibilidade = "Disponível"
+                elif statusDisponibilidade == False: 
+                    statusDisponibilidade = "Indisponível"
+                break
+            else:
+                print("Opção Inválida. Tente Novamente...")
+        print(f"O Quarto Está {statusDisponibilidade}")
+
+        quarto = Quartos(numeroQuarto, tipoQuarto, precoDiaria, statusDisponibilidade)
+        self.listaDeQuartos.append(quarto)
+        print(f"O Quarto {quarto.numeroQuarto} Foi Cadastrado com sucesso")
 
     def verTodosQuarto(self):
-        pass
+        if not self.listaDeQuartos:
+            print("Nenhum quarto foi encontrado...")
+            return
+        
+        for quarto in self.listaDeQuartos:
+            print(f"""
+    Número: {quarto.numeroQuarto}
+    Tipo: {quarto.tipoDeQuarto}
+    Preço (Diária): {quarto.precoDaDiaria}
+    Disponibilidade : {quarto.statusDeDisponibilidade}
+
+""")
 
     def verQuartosDisponiveis(self):
         pass
@@ -109,4 +167,3 @@ O que você deseja modificar:
 
     def excluirReserva(self):
         pass
-
