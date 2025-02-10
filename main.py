@@ -38,6 +38,7 @@ Digite a Opção que Deseja:
                         hotel.adicionarCliente()
                         limpar_terminal(tempo=0)
                     case "2":
+                        limpar_terminal(tempo=0)
                         hotel.verTodosCliente()
                     case "3":
                         hotel.modificarCliente()
@@ -70,12 +71,14 @@ Digite a Opção que Deseja:
                         hotel.adicionarQuarto()
                         limpar_terminal(tempo=0)
                     case "2":
+                        limpar_terminal(tempo=0)
                         hotel.verTodosQuarto()
                     case "3":
+                        limpar_terminal(tempo=0)
                         hotel.verQuartosDisponiveis()
                     case "4":
-                        hotel.modificarQuarto()
                         limpar_terminal(tempo=0)
+                        hotel.modificarQuarto()
                     case "5":
                         hotel.excluirQuarto()
                         limpar_terminal(tempo=1)
